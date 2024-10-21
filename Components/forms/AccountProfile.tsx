@@ -19,6 +19,7 @@ import profile from "../../assets/profile.svg";
 import { usePathname, useRouter } from "next/navigation";
 import { isBase64Image } from "@/lib/utils";
 import * as z from "zod";
+import { useUploadThing } from "@/lib/uploading";
 // import { useUploadThing } from "@/lib/uploadthing";
 
 interface Props {
@@ -34,7 +35,7 @@ interface Props {
 }
 
 const AccountProfile = ({ user, btnTitle }: Props) => {
-  // const { startUpload } = useUploadThing();
+  const { startUpload } = useUploadThing("media");
   const router = useRouter();
   const pathname = usePathname();
   const [files, setFiles] = React.useState<File[]>([]);
@@ -52,22 +53,22 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     const blob = values.profile_photo;
 
     const hasImageChanged = isBase64Image(blob);
-    // if (hasImageChanged) {
-    //   const imgRes = await startUpload(files);
+    if (hasImageChanged) {
+      const imgRes = await startUpload(files);
 
-    //   if (imgRes && imgRes[0].fileUrl) {
-    //     values.profile_photo = imgRes[0].fileUrl;
-    //   }
-    // }
+      if (imgRes && imgRes[0].fileUrl) {
+        values.profile_photo = imgRes[0].fileUrl;
+      }
+    }
 
-    // await updateUser({
-    //   name: values.name,
-    //   path: pathname,
-    //   username: values.username,
-    //   userId: user.id,
-    //   bio: values.bio,
-    //   image: values.profile_photo,
-    // });
+    await updateUser({
+      name: values.name,
+      path: pathname,
+      username: values.username,
+      userId: user.id,
+      bio: values.bio,
+      image: values.profile_photo,
+    });
 
     if (pathname === "/profile/edit") {
       router.back();
