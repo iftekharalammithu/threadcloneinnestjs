@@ -20,6 +20,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { isBase64Image } from "@/lib/utils";
 import * as z from "zod";
 import { useUploadThing } from "@/lib/uploading";
+import { updateUser } from "@/lib/actions/user.action";
 // import { useUploadThing } from "@/lib/uploadthing";
 
 interface Props {
