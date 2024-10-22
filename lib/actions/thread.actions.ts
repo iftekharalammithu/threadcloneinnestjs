@@ -236,7 +236,7 @@ export async function addCommentToThread(
     // Save the updated original thread to the database
     await originalThread.save();
 
-    revalidatePath(path);
+    revalidatePath(path); // Refresh the page for  the updated thread
   } catch (err) {
     console.error("Error while adding comment:", err);
     throw new Error("Unable to add comment");
