@@ -1,3 +1,5 @@
+import Searchbar from "@/Components/shares/SearchBar";
+import { fetchCommunities } from "@/lib/actions/communities.actions";
 import { fetchUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";

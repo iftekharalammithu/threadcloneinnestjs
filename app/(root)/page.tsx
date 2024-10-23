@@ -4,7 +4,11 @@ import { UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import { useRouter } from "next/router"; // Import useRouter
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) {
   const user = await currentUser();
   if (!user) return null;
   const result = await fetchPosts(
